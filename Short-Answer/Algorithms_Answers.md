@@ -7,7 +7,7 @@ would take 10 operations.
 
 b)I think the for loop will go through and touch every element in the list and and double the value of j until it's bigger than n and then reset it, so it will touch every element no matter what (O(n)) then with the while loop running as many times as it needs until j > n makes it O(N x M)
 
-c)The length of bunnies will decrement until it hits 0. Every time it decrements, it also returns a 2 which I believe is constant. So the runtime should be O(c n) because the function invokes itself for every value in the list and has a constant return right before each invocation.
+c)The length of bunnies will decrement until it hits 0. Every time it decrements, it also returns a 2 which I believe is constant. So the runtime should be O(n) because the function invokes itself for every value in the list and has a constant return right before each invocation.
 
 ## Exercise II
 

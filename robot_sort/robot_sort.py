@@ -94,62 +94,97 @@ class SortingRobot:
         """
         return self._light == "ON"
 
-    def back_to_the_front(self, index):
-        self._position = index
+    def sort_check(self):
+        while self.light_is_on() == False and self.can_move_right() == True:
+            self.set_light_on()
+            self.swap_item()
+            self.move_right()
+            if self.compare_item() == -1:
+                # next two lines returns it to its original place
+                self.move_left()
+                self.swap_item()
+                # next line return
+                self.move_right()
+                self.set_light_off()
+            elif self.compare_item() == 1:
+                return False
+            elif self.can_move_right() == False:
+                return True
 
     def sort(self):
         """
         Sort the robot's list.
         """
-        # Fill this out
-        # self.swap_item()
-        # for i in range(len(self._list)):
-        #     if self.compare_item() == 1:
-        #         self.move_right()
-        #         self.swap_item()
-        #     elif self.compare_item() == -1:
-        #         pass
+        while self.light_is_on() == False:
+            # light on while sorting
+            self.set_light_on()
+            self.swap_item()
+
+            while self.can_move_right() == True:
+                # stops when end of list is reached
+
+                if self.compare_item() == 1:
+                    # if held item is larger:
+                    # next two lines move held item forward and keep continue loop
+                    # by setting light to off
+                    self.move_right()
+                    self.set_light_off()
+                    # now ready to iterate again and see if it's still the larger value
+
+                elif self.compare_item() == -1:
+                    # if held item is smaller than the next, grab larger item and continue
+                    self.swap_item()
+                    self.move_right()
+                    if self.can_move_right() == False:
+                        self.set_light_off()
+                        break
+                    self.set_light_off()
+
+                    # ready to iterate again as long as we can still move right
+                    # once we can't move right, below loop runs to begin again at the beginning
+                    # and bring next largest value to the right end of array
+
+            while self.can_move_left() == True:
+                self.move_left()
 
 
 #  *********************** separating code *************************************************
 
         # reapproaching with while loops and no additional helper methods
         # not a very timely solution
-        while self.light_is_on() == False:
-            # light on while sorting
-            self.set_light_on()
+        # while self.light_is_on() == False:
+        #     # light on while sorting
+        #     self.set_light_on()
 
-            while self.can_move_right() == True:
-                # stops when end of list is reached
-                # robot starts off with self._item set to None
-                # self.set_light_on()
-                self.swap_item()
-                self.move_right()
+        #     while self.can_move_right() == True:
+        #         # stops when end of list is reached
+        #         # robot starts off with self._item set to None
+        #         # self.set_light_on()
+        #         self.swap_item()
+        #         self.move_right()
 
-                if self.compare_item == 1:
-                    # held item is larger
-                    # next three lines move the smaller value to the left
-                    self.swap_item()
-                    self.move_left()
-                    self.swap_item()
-                    # next two pick up the next item
-                    self.move_right()
-                    self.set_light_off()
-                    # now ready to pick up where we left off
-                else:
-                    # if this item is smaller than the next, move it back to the left
-                    self.move_left()
-                    self.swap_item()
-                    self.move_right()
-                    self.set_light_off()
-                    # ready to pick up where we left off again
-                    # as long as we can still move right
-                    # once we can't move right, below loop runs
+        #         if self.compare_item() == 1:
+        #             # held item is larger
+        #             # next three lines move the smaller value to the left
+        #             self.swap_item()
+        #             self.move_left()
+        #             self.swap_item()
+        #             # next two pick up the next item
+        #             self.move_right()
+        #             self.set_light_off()
+        #             # now ready to pick up where we left off
 
-            while self.can_move_left():
-                self.move_left()
-
-
+        #         elif self.compare_item() == -1:
+        #             # if this item is smaller than the next, move it back to the left
+        #             self.move_left()
+        #             self.swap_item()
+        #             self.move_right()
+        #             self.set_light_off()
+        #             # ready to pick up where we left off again
+        #             # as long as we can still move right
+        #             # once we can't move right, below loop runs
+        #     while self.can_move_left():
+        #         self.move_left()
 # *************************** separating different blocks of code ***********************************
         # self.set_light_on()
         # while self.light_is_on == True:
